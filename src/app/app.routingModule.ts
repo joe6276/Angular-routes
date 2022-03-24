@@ -10,6 +10,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { NgModule } from '@angular/core';
 import { AuthguardService } from './authGuard';
 import { CanDeactivateGuard } from './Services/canDeactivate.Service';
+import { ServerResolver } from './Services/ResolverService';
 
 const appRouter:Routes =[
     {path:'', component:HomeComponent},
@@ -21,11 +22,11 @@ const appRouter:Routes =[
     canActivate:[AuthguardService] 
    
     ,component:ServersComponent, children:[
-      {path:':id', component:ServerComponent},
+      {path:':id', component:ServerComponent,  resolve:{server:ServerResolver}},
       {path:':id/edit', component:EditServerComponent,canDeactivate:[CanDeactivateGuard]}
     ]},
   
-    {path:'not-found', component:PageNotFoundComponent },
+    {path:'not-found', component:PageNotFoundComponent, data:{message:'Page Not Found'}},
     {path:'**', redirectTo:'/not-found'}
   ]
 
