@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Data, Params, Router } from '@angular/router';
+import { Server } from 'src/app/Intefaces/server';
 import { ServersService } from 'src/app/Services/server.service';
 
 @Component({
@@ -12,7 +13,7 @@ id:number=0;
 name:string='';
 status:string=''
 
-// server: {id: number, name: string, status: string} ;
+ server!:Server;
 
 
   constructor( private serversService:ServersService,
@@ -26,17 +27,31 @@ status:string=''
     }
   ngOnInit(): void {
 
+    // const id = +this.route.snapshot.params['id']
+    // const svs = this.serversService.getServer(id);
+    // this.name= svs!.name
+    // this.status= svs!.status
+    // // this.server= this.serversService.getServer(id)
+    // //   console.log(this.server);
+      
+    // this.route.params.subscribe(
+    // (params:Params)=>{
+    //   this.serversService.getServer(+params['id']);
+    // }
+
+
+    // )
+
+
+    
     const id = +this.route.snapshot.params['id']
     console.log(id);
-    
-    const svs = this.serversService.getServer(id);
-    this.name= svs!.name
-    this.status= svs!.status
-
-    this.route.params.subscribe(
-    (params:Params)=>{
-      this.serversService.getServer(+params['id']);
-    }
+    this.route.data.subscribe(
+      (data:Data)=>{
+        console.log(data)
+        this.name= data['server'].name
+        this.status= data['server'].status
+      }
     )
   }
 

@@ -1,3 +1,4 @@
+
 import { Server } from "../Intefaces/server";
 
 export class ServersService {
@@ -29,7 +30,8 @@ export class ServersService {
           return s.id === id;
         }
       );
-      return server;
+      return server
+   
     }
   
     updateServer(id: number, serverInfo: {name: string, status: string}) {
